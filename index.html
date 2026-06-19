@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ayx · 用途识别卡</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            background: #f6f9fc;
+            color: #1e2a3a;
+            line-height: 1.55;
+            padding: 2rem 1.2rem;
+        }
+
+        .wrapper {
+            max-width: 1120px;
+            margin: 0 auto;
+        }
+
+        /* 主视觉 — 蓝绿渐变网格背景 */
+        .hero {
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, #115e59 0%, #0b3b3a 100%);
+            border-radius: 2rem;
+            padding: 3rem 2rem 2.8rem;
+            margin-bottom: 2.2rem;
+            color: white;
+            box-shadow: 0 12px 28px rgba(6, 78, 74, 0.18);
+            background-image: 
+                repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.04) 0px, rgba(255, 255, 255, 0.04) 1px, transparent 1px, transparent 32px),
+                repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.04) 0px, rgba(255, 255, 255, 0.04) 1px, transparent 1px, transparent 32px);
+        }
+
+        .hero h1 {
+            font-size: 2.6rem;
+            font-weight: 550;
+            letter-spacing: -0.02em;
+            margin-bottom: 0.75rem;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            max-width: 600px;
+            opacity: 0.9;
+            margin-top: 0.2rem;
+        }
+
+        .hero .tagline {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(4px);
+            padding: 0.3rem 1rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin-bottom: 1.2rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* 网格卡片区 — 用途卡片 */
+        .card-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+            margin: 2rem 0 2.2rem;
+        }
+
+        @media (min-width: 600px) {
+            .card-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (min-width: 900px) {
+            .card-grid {
+                grid-template-columns: 1fr 1fr 1fr;
+            }
+        }
+
+        .card {
+            background: white;
+            border-radius: 1.5rem;
+            padding: 1.6rem 1.5rem 1.8rem;
+            box-shadow: 0 4px 12px rgba(0, 30, 30, 0.06);
+            transition: transform 0.2s ease, box-shadow 0.25s ease;
+            border: 1px solid rgba(20, 110, 100, 0.08);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 22px rgba(5, 80, 70, 0.1);
+            border-color: #1c8a7a;
+        }
+
+        .card .icon {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .card h3 {
+            font-size: 1.15rem;
+            font-weight: 600;
+            letter-spacing: 0.01em;
+            margin-bottom: 0.3rem;
+            color: #0b3b3a;
+        }
+
+        .card .badge {
+            align-self: flex-start;
+            background: #d4f0ec;
+            color: #115e59;
+            font-size: 0.7rem;
+            padding: 0.15rem 0.7rem;
+            border-radius: 50px;
+            font-weight: 500;
+            margin-top: 0.5rem;
+            letter-spacing: 0.02em;
+        }
+
+        .card p {
+            font-size: 0.94rem;
+            color: #2b4047;
+            flex: 1;
+        }
+
+        /* 适合人群 — 内嵌分隔 */
+        .audience-section {
+            background: white;
+            border-radius: 1.5rem;
+            padding: 1.6rem 1.5rem 2rem;
+            margin: 2rem 0;
+            box-shadow: 0 4px 12px rgba(0, 30, 30, 0.04);
+            border: 1px solid rgba(20, 110, 100, 0.06);
+        }
+
+        .audience-section h2 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #0d4945;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .audience-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem 1.2rem;
+        }
+
+        .audience-tags span {
+            background: #e9f6f3;
+            padding: 0.35rem 1.2rem 0.35rem 1.8rem;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            position: relative;
+            color: #09433e;
+            font-weight: 460;
+            border: 1px solid #b7ded8;
+        }
+
+        .audience-tags span::before {
+            content: "▹";
+            position: absolute;
+            left: 0.7rem;
+            color: #1a887a;
+            font-weight: 700;
+        }
+
+        /* 自然链接段落 */
+        .link-paragraph {
+            background: #edf8f5;
+            border-radius: 1.5rem;
+            padding: 1.6rem 1.8rem;
+            margin: 2rem 0;
+            border-left: 6px solid #1b8a7a;
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        .link-paragraph a {
+            color: #09433e;
+            text-decoration: none;
+            font-weight: 600;
+            border-bottom: 2px solid #38b2a0;
+            padding-bottom: 1px;
+            transition: border-color 0.15s, background 0.2s;
+        }
+
+        .link-paragraph a:hover {
+            border-bottom-color: #0b5e54;
+            background: #d2efe9;
+        }
+
+        /* FAQ 摘要 */
+        .faq-mini {
+            display: grid;
+            gap: 1.2rem;
+            margin: 1.8rem 0 1rem;
+            background: white;
+            padding: 1.5rem;
+            border-radius: 1.5rem;
+            border: 1px solid rgba(20, 110, 100, 0.05);
+        }
+
+        .faq-item {
+            border-bottom: 1px dashed #cae3df;
+            padding-bottom: 0.8rem;
+        }
+
+        .faq-item:last-child {
+            border-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .faq-q {
+            font-weight: 600;
+            color: #09433e;
+            display: flex;
+            gap: 0.4rem;
+            align-items: baseline;
+        }
+
+        .faq-q::before {
+            content: "Q";
+            background: #d0ede7;
+            color: #115e59;
+            font-size: 0.75rem;
+            font-weight: 700;
+            width: 1.4rem;
+            height: 1.4rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .faq-a {
+            margin-top: 0.3rem;
+            color: #2f4a50;
+            font-size: 0.9rem;
+            padding-left: 1.9rem;
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid #cbe2dd;
+            margin: 1.2rem 0;
+        }
+
+        .footer-note {
+            text-align: center;
+            font-size: 0.85rem;
+            color: #5b7477;
+            margin-top: 3rem;
+            padding-top: 0.8rem;
+            border-top: 1px solid #d4e7e2;
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 { font-size: 2rem; }
+            .hero { padding: 2rem 1.2rem; }
+            .link-paragraph { padding: 1.2rem; }
+        }
+    </style>
+</head>
+<body>
+<div class="wrapper">
+
+    <!-- HERO 主视觉 -->
+    <div class="hero">
+        <div class="tagline">🧭 用途识别卡</div>
+        <h1>ayx · 信息框架</h1>
+        <p>快速理解站点定位：集成工具索引、轻量资讯与社区筛选入口。以下卡片帮助你判断是否匹配需求。</p>
+    </div>
+
+    <!-- 信息卡片：用途卡片 三块 -->
+    <div class="card-grid">
+        <div class="card">
+            <div class="icon">📌</div>
+            <h3>工具索引</h3>
+            <p>聚合常用在线工具与资源导航，覆盖文档、转换、查询等轻量场景，减少重复搜索。</p>
+            <span class="badge">高频使用</span>
+        </div>
+        <div class="card">
+            <div class="icon">📄</div>
+            <h3>内容摘要</h3>
+            <p>提供特定领域的信息摘选与简短资讯，适合快速浏览而非深度阅读。结构偏列表化。</p>
+            <span class="badge">碎片阅读</span>
+        </div>
+        <div class="card">
+            <div class="icon">🔗</div>
+            <h3>社区筛选</h3>
+            <p>收录经过初步筛选的讨论板块与开放链接，用户可自行判断是否深入参与。</p>
+            <span class="badge">探索入口</span>
+        </div>
+    </div>
+
+    <!-- 适合人群 -->
+    <div class="audience-section">
+        <h2>👥 适合这样的人群</h2>
+        <div class="audience-tags">
+            <span>常搜工具但不希望存太多书签</span>
+            <span>需要轻量信息流而非长文章</span>
+            <span>偏好索引式入口而非算法推荐</span>
+            <span>对特定垂直领域有快速浏览需求</span>
+            <span>希望减少检索步骤的用户</span>
+        </div>
+    </div>
+
+    <!-- 自然链接段落（包含必需 a 标签） -->
+    <div class="link-paragraph">
+        <strong>如何判断是否匹配？</strong> 如果你日常需要快速定位网络工具或信息片段，且偏好目录式呈现，<a href="https://ayx-cctv.com">ayx</a> 提供了一种轻组织的浏览方式。站点以卡片和列表为主，不强调算法推荐，适合主动查找而非被动接收。建议先浏览工具索引板块，再决定是否收藏。
+    </div>
+
+    <!-- FAQ 摘要 差异化片段 -->
+    <div class="faq-mini">
+        <div class="faq-item">
+            <div class="faq-q">ayx 主要解决什么问题？</div>
+            <div class="faq-a">减少零散搜索，将常用工具与简短资讯集中在单一页面，降低跳转成本。</div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-q">内容更新频率如何？</div>
+            <div class="faq-a">按板块不同：工具索引相对稳定，资讯摘要不定期刷新。页面无明显时间戳，建议以实际内容为准。</div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-q">适合移动端使用吗？</div>
+            <div class="faq-a">布局针对手机和桌面均做了适配，卡片间距和字体在移动端可读性较好。</div>
+        </div>
+    </div>
+
+    <!-- 补充提示 与 另一处自然链接 -->
+    <p style="font-size:0.92rem; color:#3b5b5a; background: #eef7f4; padding: 0.8rem 1.2rem; border-radius: 2rem; margin: 1rem 0 0.5rem;">
+        💡 如果你更注重结构化入口而非信息流，<a href="https://ayx-cctv.com" style="color:#115e59; font-weight:500; text-decoration:underline; text-underline-offset:3px; text-decoration-color: #45b5a2;">ayx</a> 的卡片索引或许能节省一些浏览步骤。每个板块的定位在标题中已标注，可快速跳过不感兴趣的部分。
+    </p>
+
+    <hr>
+
+    <div class="footer-note">
+        基于实际用途描述 · 内容保持客观克制
+    </div>
+
+</div>
+</body>
+</html>
